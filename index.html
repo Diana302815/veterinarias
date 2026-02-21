@@ -15,12 +15,10 @@
 </head>
 <body>
     <!-- Video de fondo (YouTube) - TÚ PONES EL ID DESPUÉS -->
-    <iframe id="video-fondo"
-    src="https://www.youtube.com/embed/zcJ0AWVohzE?autoplay=1&mute=1&loop=1&playlist=zcJ0AWVohzE&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0"
-    frameborder="0"
-    allow="autoplay; fullscreen; encrypted-media"
-    allowfullscreen>
-</iframe>
+    <video id="video-fondo" autoplay muted loop playsinline>
+    <source src="assets/video.mp4" type="video/mp4">
+    Tu navegador no soporta video HTML5.
+</video>
 
     <!-- Capa de atmósfera (oscurece un poco el video) -->
     <div class="atmosphere"></div>
@@ -197,4 +195,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>
