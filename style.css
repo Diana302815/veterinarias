@@ -352,6 +352,23 @@ textarea.text-input {
     }
 
 }
+/* Color del texto que el usuario ESCRIBE en los campos del formulario */
+.datos-card input,
+.datos-card textarea,
+.text-input,
+.edad-selector {
+    color: #ffffff; /* Blanco. Cámbialo por el color que quieras */
+}
+
+/* Color de los placeholders (texto de ayuda dentro de los campos) */
+.datos-card input::placeholder,
+.datos-card textarea::placeholder,
+.text-input::placeholder,
+.edad-selector::placeholder {
+    color: #fffefe; /* Gris medio. Ajusta a tu gusto */
+    opacity: 1;     /* Fuerza el color sin transparencia */
+}
+
 
 
 
