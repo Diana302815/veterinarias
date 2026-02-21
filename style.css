@@ -367,3 +367,98 @@ textarea.text-input {
     color: #fffdfd; /* Gris medio. Ajusta a tu gusto */
     opacity: 1;     /* Fuerza el color sin transparencia */
 }
+/* ===== AJUSTES RESPONSIVE PARA MÓVIL ===== */
+@media (max-width: 600px) {
+    /* Ajusta el contenedor principal para que no desborde */
+    .experience {
+        padding: 10px;
+    }
+
+    /* Reduce el padding de las tarjetas para que quepa mejor */
+    .pregunta-card, .datos-card, .confirmacion-card {
+        padding: 20px 15px;
+        margin: 10px 0;
+        max-width: 100%;
+    }
+
+    /* Ajusta el tamaño de la fuente del título */
+    h2 {
+        font-size: 1.5rem !important; /* Forzamos un tamaño más pequeño */
+        margin-bottom: 20px;
+        word-break: break-word; /* Evita que palabras largas se salgan */
+    }
+
+    /* Hace que las opciones (botones) ocupen todo el ancho */
+    .opciones {
+        grid-template-columns: 1fr !important; /* Una sola columna */
+        gap: 10px;
+    }
+
+    .opcion {
+        padding: 14px;
+        font-size: 0.95rem;
+    }
+
+    /* Ajusta los inputs y el botón */
+    .datos-card input, .datos-card button, .text-input, .edad-selector {
+        width: 100%;
+        box-sizing: border-box;
+        font-size: 16px; /* Evita el zoom automático en iOS */
+    }
+
+    .btn-agendar {
+        padding: 15px;
+        font-size: 1.1rem;
+        white-space: normal; /* Permite que el texto del botón se parta en varias líneas si es necesario */
+    }
+
+    /* Ajusta el precio para que no desborde */
+    .precio-final {
+        font-size: 1.3rem;
+        word-break: break-word;
+    }
+
+    /* Si el botón de WhatsApp se ve mal, lo ajustamos */
+    .btn-whatsapp {
+        padding: 15px 20px;
+        font-size: 1.1rem;
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+    }
+
+    /* Ajusta el texto de confirmación */
+    .confirmacion-card p {
+        font-size: 0.95rem;
+    }
+
+    /* Si el número de etapa se ve raro */
+    .stage-number {
+        font-size: 12px;
+    }
+
+    /* La barra de progreso la dejamos más compacta */
+    .progress-tracker {
+        padding: 8px 12px;
+        bottom: 15px;
+    }
+    .step {
+        width: 24px;
+        height: 24px;
+        font-size: 12px;
+    }
+}
+
+/* Ajuste extra para pantallas muy pequeñas (menos de 400px) */
+@media (max-width: 400px) {
+    .pregunta-card, .datos-card, .confirmacion-card {
+        padding: 15px 10px;
+    }
+    h2 {
+        font-size: 1.3rem !important;
+    }
+    .opcion {
+        padding: 12px;
+        font-size: 0.9rem;
+    }
+}
