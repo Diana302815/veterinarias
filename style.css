@@ -1,7 +1,7 @@
 :root {
     --verde-principal: #2ecc71;
     --verde-oscuro: #27ae60;
-    --fondo-oscuro: rgba(6, 80, 6, 0.151);
+    --fondo-oscuro: rgba(236, 245, 236, 0.014);
     --texto-claro: #ffffff;
     --texto-dim: rgb(255, 253, 253);
     --borde-glow: rgba(46, 204, 113, 0.3);
@@ -29,7 +29,9 @@ body, html {
     left: 0;
     width: 100vw;
     height: 100vh;
-    object-fit: cover;
+    object-fit: contain;
+    object-position: center;
+    background-color: rgba(11, 109, 40, 0.726); /* Usa el color definido */
     pointer-events: none;
     z-index: 0;
 }
@@ -80,7 +82,7 @@ body, html {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 40px;
 }
 
 .section {
@@ -101,8 +103,8 @@ body, html {
 
 /* Tarjetas */
 .pregunta-card, .datos-card, .confirmacion-card {
-    background: var(--fondo-oscuro);
-    backdrop-filter: blur(16px);
+    background: rgba(241, 252, 241, 0) ;
+    backdrop-filter: blur(3px);
     border-radius: 32px;
     padding: 40px;
     border: 1px solid rgba(255,255,255,0.1);
@@ -462,4 +464,3 @@ textarea.text-input {
         font-size: 0.9rem;
     }
 }
-
