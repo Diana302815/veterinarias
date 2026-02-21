@@ -1,7 +1,7 @@
 :root {
     --verde-principal: #2ecc71;
     --verde-oscuro: #27ae60;
-    --fondo-oscuro: rgba(0, 30, 0, 0.9);
+    --fondo-oscuro: rgba(0, 30, 0, 0.3);
     --texto-claro: #ffffff;
     --texto-dim: rgba(255,255,255,0.8);
     --borde-glow: rgba(46, 204, 113, 0.3);
@@ -352,5 +352,6 @@ textarea.text-input {
     }
 
 }
+
 
 
