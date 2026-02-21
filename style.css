@@ -2,7 +2,7 @@
     --verde-principal: #2ecc71;
     --verde-oscuro: #27ae60;
     --fondo-oscuro: rgba(6, 80, 6, 0.151);
-    --texto-claro: #ffffff;
+    --texto-claro: #a8a8a8;
     --texto-dim: rgba(255,255,255,0.8);
     --borde-glow: rgba(46, 204, 113, 0.3);
 }
@@ -368,6 +368,7 @@ textarea.text-input {
     color: #fffdfd; /* Gris medio. Ajusta a tu gusto */
     opacity: 1;     /* Fuerza el color sin transparencia */
 }
+
 
 
 
