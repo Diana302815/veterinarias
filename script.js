@@ -43,7 +43,7 @@ const PRECIOS = {
         exotico: { base: 80 }
     },
     tumores: {
-        perro: { base: 300, suplementoRaza: 1.5 }, // Ejemplo, luego se ajusta
+        perro: { base: 300, suplementoRaza: 1.5 },
         gato: { base: 250 },
         exotico: { base: 350 }
     },
@@ -57,7 +57,6 @@ const PRECIOS = {
         gato: { base: 130 },
         exotico: { base: 200 }
     },
-    // Razas que multiplican precio (por anestesia especial)
     razasEspeciales: {
         'bulldog': 1.5,
         'pug': 1.4,
@@ -83,20 +82,17 @@ function calcularPrecio() {
         if (proc === 'esterilizacion') {
             precio = procData[especie][genero][peso] || 0;
         } else {
-            // Para otros procedimientos usamos base + suplementos
             const base = procData[especie]?.base || 0;
             let suplemento = 1;
-            // Aplicar suplemento por peso si existe
             if (procData[especie]?.suplementoPeso && procData[especie].suplementoPeso[peso]) {
                 suplemento = procData[especie].suplementoPeso[peso];
             }
             precio = base * suplemento;
         }
-    } else { // exótico
+    } else {
         precio = procData.exotico?.base || 200;
     }
 
-    // Aplicar multiplicador por raza especial
     if (raza) {
         const razaLower = raza.toLowerCase();
         for (let [razaClave, multi] of Object.entries(PRECIOS.razasEspeciales)) {
@@ -139,15 +135,12 @@ function siguienteEtapa() {
     if (etapaActual < totalEtapas) {
         irAEtapa(etapaActual + 1);
     } else {
-        // Última etapa → ir a datos
         sections.preguntas.classList.remove('active');
         sections.datos.classList.add('active');
-        // Mostrar precio calculado
         actualizarPrecioMostrado();
     }
 }
 
-// Mostrar precio en el formulario
 function actualizarPrecioMostrado() {
     precioCalculado = calcularPrecio();
     document.getElementById('valor-precio').textContent = precioCalculado + '€';
@@ -156,19 +149,16 @@ function actualizarPrecioMostrado() {
 // ---------- MANEJAR SELECCIÓN DE OPCIONES ----------
 document.querySelectorAll('.opcion').forEach(op => {
     op.addEventListener('click', function(e) {
-        // Evitar si es botón de confirmación de texto
         if (this.id === 'confirmar-edad' || this.id === 'confirmar-raza' || this.id === 'confirmar-estado' || this.id === 'confirmar-remitido') return;
 
         const padre = this.closest('.pregunta-stage');
         const stageId = padre.id;
         const valor = this.dataset.valor;
 
-        // Remover selected de hermanos
         const siblings = this.parentElement.children;
         Array.from(siblings).forEach(s => s.classList.remove('selected'));
         this.classList.add('selected');
 
-        // Guardar según etapa
         if (stageId === 'stage-1') respuestas.especie = valor;
         if (stageId === 'stage-2') respuestas.genero = valor;
         if (stageId === 'stage-3') respuestas.peso = valor;
@@ -183,16 +173,13 @@ document.querySelectorAll('.opcion').forEach(op => {
             }
         }
 
-        // Pequeño feedback visual
         this.style.transform = 'scale(0.98)';
         setTimeout(() => this.style.transform = 'scale(1)', 150);
 
-        // Avance automático después de 0.8s
         setTimeout(() => {
             if (etapaActual < totalEtapas) {
                 siguienteEtapa();
             } else {
-                // Si es etapa 8 y no es remitido, o si ya confirmó remitido
                 if (stageId === 'stage-8' && valor === 'no') {
                     siguienteEtapa();
                 }
@@ -201,7 +188,6 @@ document.querySelectorAll('.opcion').forEach(op => {
     });
 });
 
-// Confirmaciones de inputs de texto
 document.getElementById('confirmar-edad')?.addEventListener('click', function() {
     const edad = document.getElementById('edad-input').value;
     if (edad) {
@@ -232,8 +218,8 @@ document.getElementById('confirmar-remitido')?.addEventListener('click', functio
     }
 });
 
-// ---------- FORMULARIO DE DATOS ----------
-document.getElementById('formulario-datos').addEventListener('submit', function(e) {
+// ---------- FORMULARIO DE DATOS (MODIFICADO PARA WEBHOOK) ----------
+document.getElementById('formulario-datos').addEventListener('submit', async function(e) {
     e.preventDefault();
 
     respuestas.propietario = document.getElementById('propietario').value;
@@ -246,7 +232,49 @@ document.getElementById('formulario-datos').addEventListener('submit', function(
         return;
     }
 
-    // Generar mensaje para WhatsApp
+    // Preparamos el objeto completo para enviar
+    const datosParaEnvio = {
+        // Datos del propietario
+        propietario: respuestas.propietario,
+        email: respuestas.email,
+        telefono: respuestas.telefono,
+        nombreMascota: respuestas.nombreMascota,
+        formaPago: respuestas.formaPago,
+        precioEstimado: precioCalculado,
+        // Todas las respuestas de la mascota
+        especie: respuestas.especie,
+        genero: respuestas.genero,
+        peso: respuestas.peso,
+        edad: respuestas.edad,
+        raza: respuestas.raza,
+        estadoFisico: respuestas.estadoFisico,
+        procedimiento: respuestas.procedimiento,
+        remitido: respuestas.remitido,
+        veterinario: respuestas.veterinario || '',
+        // Metadatos
+        timestamp: new Date().toISOString(),
+        fuente: 'Impacto Animal Web'
+    };
+
+    // --- ENVÍO A WEBHOOK (GHL) ---
+    const webhookURL = 'https://services.leadconnectorhq.com/hooks/HFgqPVifwNR2SxrzGwEG/webhook-trigger/EQCHCH96UNHVb5zaNfQp'; // ← REEMPLAZA ESTA URL
+    try {
+        const response = await fetch(webhookURL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(datosParaEnvio)
+        });
+        if (response.ok) {
+            console.log('✅ Datos enviados a GHL correctamente');
+        } else {
+            console.error('❌ Error al enviar a GHL, código:', response.status);
+        }
+    } catch (error) {
+        console.error('❌ Error de conexión con el webhook:', error);
+    }
+    // --- FIN ENVÍO WEBHOOK ---
+
+    // Generar mensaje para WhatsApp (continuamos igual)
     const mensaje = generarMensajeWhatsApp();
     const url = `https://wa.me/573022853080?text=${encodeURIComponent(mensaje)}`;
     document.getElementById('whatsapp-link').href = url;
@@ -290,7 +318,7 @@ function generarMensajeWhatsApp() {
     return mensaje;
 }
 
-// ---------- MÚSICA (OPCIONAL) ----------
+// ---------- MÚSICA ----------
 const music = document.getElementById('background-music');
 const musicToggle = document.getElementById('music-toggle');
 const musicStatus = document.getElementById('music-status');
@@ -321,11 +349,9 @@ function initMusic() {
 
 // ---------- INICIALIZACIÓN ----------
 document.addEventListener('DOMContentLoaded', () => {
-    // Mostrar primera etapa
     stages.forEach((s, i) => s.style.display = i === 0 ? 'block' : 'none');
     initMusic();
 
-    // Si se cambia algo que afecte precio, actualizar en formulario
     const inputsQueAfectanPrecio = ['#raza-input', '#edad-input', '#estado-input'];
     inputsQueAfectanPrecio.forEach(selector => {
         const el = document.querySelector(selector);
