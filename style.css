@@ -365,9 +365,10 @@ textarea.text-input {
 .datos-card textarea::placeholder,
 .text-input::placeholder,
 .edad-selector::placeholder {
-    color: #fffefe; /* Gris medio. Ajusta a tu gusto */
+    color: #fffdfd; /* Gris medio. Ajusta a tu gusto */
     opacity: 1;     /* Fuerza el color sin transparencia */
 }
+
 
 
 
