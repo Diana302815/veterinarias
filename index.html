@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impacto Animal · Agenda tu cirugía</title>
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Estilos -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Video de fondo (YouTube) - TÚ PONES EL ID DESPUÉS -->
+    <iframe id="video-fondo"
+    src="https://www.youtube.com/embed/zcJ0AWVohzE?autoplay=1&mute=1&loop=1&playlist=zcJ0AWVohzE&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0"
+    frameborder="0"
+    allow="autoplay; fullscreen; encrypted-media"
+    allowfullscreen>
+</iframe>
+
+    <!-- Capa de atmósfera (oscurece un poco el video) -->
+    <div class="atmosphere"></div>
+
+    <!-- Control de música (opcional) -->
+    <div class="music-control">
+        <button id="music-toggle">
+            <i class="fas fa-music"></i>
+            <span id="music-status">Música: ON</span>
+        </button>
+        <audio id="background-music" loop>
+            <source src="assets/audio.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <!-- Contenedor principal -->
+    <main class="experience">
+        <!-- SECCIÓN DE PREGUNTAS (8 etapas) -->
+        <section id="preguntas-section" class="section active">
+            <!-- Etapa 1: Especie -->
+            <div class="pregunta-stage" id="stage-1">
+                <div class="pregunta-card">
+                    <span class="stage-number">PREGUNTA 1/8</span>
+                    <h2>¿Cuál es la especie de tu mascota?</h2>
+                    <div class="opciones">
+                        <div class="opcion" data-valor="perro">Perro</div>
+                        <div class="opcion" data-valor="gato">Gato</div>
+                        <div class="opcion" data-valor="exotico">Exótico</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Etapa 2: Género -->
+            <div class="pregunta-stage" id="stage-2">
+                <div class="pregunta-card">
+                    <span class="stage-number">PREGUNTA 2/8</span>
+                    <h2>¿Es macho o hembra?</h2>
+                    <div class="opciones">
+                        <div class="opcion" data-valor="macho">Macho</div>
+                        <div class="opcion" data-valor="hembra">Hembra</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Etapa 3: Peso -->
+            <div class="pregunta-stage" id="stage-3">
+                <div class="pregunta-card">
+                    <span class="stage-number">PREGUNTA 3/8</span>
+                    <h2>¿Cuánto pesa aproximadamente?</h2>
+                    <div class="opciones">
+                        <div class="opcion" data-valor="<5">Menos de 5 kg</div>
+                        <div class="opcion" data-valor="5-15">5 - 15 kg</div>
+                        <div class="opcion" data-valor="15-30">15 - 30 kg</div>
+                        <div class="opcion" data-valor=">30">Más de 30 kg</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Etapa 4: Edad (selector numérico) -->
+            <div class="pregunta-stage" id="stage-4">
+                <div class="pregunta-card">
+                    <span class="stage-number">PREGUNTA 4/8</span>
+                    <h2>¿Qué edad tiene? (en años)</h2>
+                    <input type="number" id="edad-input" min="0" max="30" step="1" value="1" class="edad-selector">
+                    <div class="opciones" style="justify-content: center;">
+                        <div class="opcion" id="confirmar-edad">Confirmar edad</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Etapa 5: Raza (texto) -->
+            <div class="pregunta-stage" id="stage-5">
+                <div class="pregunta-card">
+                    <span class="stage-number">PREGUNTA 5/8</span>
+                    <h2>¿Cuál es la raza?</h2>
+                    <input type="text" id="raza-input" placeholder="Ej: Bulldog, Criollo, Persa..." class="text-input">
+                    <div class="opciones" style="justify-content: center;">
+                        <div class="opcion" id="confirmar-raza">Confirmar raza</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Etapa 6: Estado físico (texto) -->
+            <div class="pregunta-stage" id="stage-6">
+                <div class="pregunta-card">
+                    <span class="stage-number">PREGUNTA 6/8</span>
+                    <h2>Estado físico / Comentarios adicionales</h2>
+                    <textarea id="estado-input" placeholder="Ej: Tiene alergias, está muy nervioso, etc." class="text-input"></textarea>
+                    <div class="opciones" style="justify-content: center;">
+                        <div class="opcion" id="confirmar-estado">Confirmar</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Etapa 7: Procedimiento -->
+            <div class="pregunta-stage" id="stage-7">
+                <div class="pregunta-card">
+                    <span class="stage-number">PREGUNTA 7/8</span>
+                    <h2>¿Qué procedimiento necesitas?</h2>
+                    <div class="opciones">
+                        <div class="opcion" data-valor="esterilizacion">Esterilización</div>
+                        <div class="opcion" data-valor="profilaxis">Profilaxis dental</div>
+                        <div class="opcion" data-valor="vacunacion">Vacunación</div>
+                        <div class="opcion" data-valor="tumores">Tumores</div>
+                        <div class="opcion" data-valor="calculos">Cálculos en vejiga</div>
+                        <div class="opcion" data-valor="otros">Otros</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Etapa 8: ¿Viene remitido? -->
+            <div class="pregunta-stage" id="stage-8">
+                <div class="pregunta-card">
+                    <span class="stage-number">PREGUNTA 8/8</span>
+                    <h2>¿Viene remitido por otro veterinario?</h2>
+                    <div class="opciones">
+                        <div class="opcion" data-valor="si">Sí</div>
+                        <div class="opcion" data-valor="no">No</div>
+                    </div>
+                    <!-- Campo que aparece solo si dice Sí -->
+                    <div id="campo-remitido" style="display: none; margin-top: 20px;">
+                        <input type="text" id="veterinario-input" placeholder="Nombre del veterinario o clínica" class="text-input">
+                        <div class="opciones" style="justify-content: center;">
+                            <div class="opcion" id="confirmar-remitido">Confirmar</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Barra de progreso -->
+            <div class="progress-tracker">
+                <div class="progress-fill" id="progress-fill"></div>
+                <div class="progress-steps">
+                    <span class="step active">1</span><span class="step">2</span><span class="step">3</span><span class="step">4</span><span class="step">5</span><span class="step">6</span><span class="step">7</span><span class="step">8</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN DE DATOS DEL PROPIETARIO Y MASCOTA -->
+        <section id="datos-section" class="section">
+            <div class="datos-card">
+                <span class="stage-number">CASI LISTO</span>
+                <h2>Datos para agendar la cirugía</h2>
+                <form id="formulario-datos">
+                    <input type="text" id="propietario" placeholder="Tu nombre completo" required>
+                    <input type="email" id="email" placeholder="Correo electrónico" required>
+                    <input type="tel" id="telefono" placeholder="Teléfono" required>
+                    <input type="text" id="nombre-mascota" placeholder="Nombre de tu mascota" required>
+
+                    <div class="forma-pago">
+                        <label class="form-label">Forma de pago del depósito:</label>
+                        <div class="opciones-pago">
+                            <div class="opcion-pago" data-pago="efectivo">Efectivo</div>
+                            <div class="opcion-pago" data-pago="transferencia">Transferencia</div>
+                        </div>
+                    </div>
+
+                    <!-- Precio calculado (se muestra automáticamente) -->
+                    <div class="precio-final" id="precio-final">
+                        Precio estimado: <span id="valor-precio">0€</span>
+                    </div>
+
+                    <button type="submit" class="btn-agendar" id="btn-agendar">Agendar mi cita</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- SECCIÓN DE CONFIRMACIÓN (con botón de WhatsApp) -->
+        <section id="confirmacion-section" class="section">
+            <div class="confirmacion-card">
+                <h1>¡Casi listo!</h1>
+                <p>Por favor, envía la foto de tu mascota (de lado, cuerpo completo) por WhatsApp para que el veterinario la evalúe antes de la cirugía.</p>
+                <p>Haz clic en el botón de abajo, se abrirá WhatsApp con un mensaje ya escrito. Solo adjunta la foto y envía.</p>
+                <a id="whatsapp-link" href="#" target="_blank" class="btn-whatsapp">
+                    <i class="fab fa-whatsapp"></i> Enviar foto por WhatsApp
+                </a>
+                <p style="margin-top: 20px; font-size: 0.9rem;">* Si no se confirma el depósito en 24h, la cita se liberará.</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
