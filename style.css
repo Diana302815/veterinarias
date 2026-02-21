@@ -141,7 +141,7 @@ h2 {
     text-align: center;
     cursor: pointer;
     transition: 0.25s;
-    color: var(--texto-dim);
+    color: #ffffff;
 }
 
 .opcion:hover {
@@ -368,6 +368,7 @@ textarea.text-input {
     color: #fffdfd; /* Gris medio. Ajusta a tu gusto */
     opacity: 1;     /* Fuerza el color sin transparencia */
 }
+
 
 
 
